@@ -34,10 +34,9 @@ function nextSha(prevSha: string | undefined): string {
 }
 
 /**
- * Phase 1(GitHub 연동 전) 동안 화면을 실제로 써볼 수 있게 하는 브라우저 저장 어댑터.
- * sha는 진짜 GitHub SHA가 아니라 저장할 때마다 증가하는 문자열이지만, "마지막으로 읽은
- * 버전과 다르면 충돌"이라는 규칙은 GithubAdapter와 동일하다 — 브라우저 탭 두 개로 같은
- * 프로젝트를 열어두면 충돌 처리 경로를 실제로 재현해 볼 수 있다.
+ * 브라우저(localStorage)에 저장하는 어댑터 — 로그인이나 서버 없이 이 기기에서만 데이터를 보관한다.
+ * sha는 저장할 때마다 증가하는 문자열이며, "마지막으로 읽은 버전과 다르면 충돌"로 처리한다 —
+ * 브라우저 탭 두 개로 같은 프로젝트를 열어두면 충돌 처리 경로를 실제로 재현해 볼 수 있다.
  */
 export class LocalAdapter implements DataAdapter {
   constructor(private readonly latencyMs = 200) {}
