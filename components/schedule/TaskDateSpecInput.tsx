@@ -39,17 +39,15 @@ export function TaskDateSpecInput({
 
   return (
     <div className="flex flex-col gap-1.5 text-sm">
-      <span className="font-medium text-zinc-700 dark:text-zinc-300">{label}</span>
+      <span className="font-semibold text-foreground">{label}</span>
       <div className="flex flex-wrap gap-1.5">
         {MODE_OPTIONS.map(([m, l]) => (
           <button
             type="button"
             key={m}
             onClick={() => handleModeChange(m)}
-            className={`rounded-full px-2.5 py-1 text-xs font-medium ${
-              mode === m
-                ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900"
-                : "bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400"
+            className={`rounded-full px-2.5 py-1 text-xs font-bold transition-colors ${
+              mode === m ? "bg-accent text-white" : "bg-surface-2 text-muted hover:text-foreground"
             }`}
           >
             {l}
@@ -63,9 +61,9 @@ export function TaskDateSpecInput({
             type="number"
             value={value.offsetDays}
             onChange={(e) => onChange({ ...value, offsetDays: Number(e.target.value) })}
-            className="w-24 rounded-lg border border-zinc-200 px-2 py-1.5 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+            className="w-24 rounded-lg border border-border bg-surface px-2 py-1.5 text-sm text-foreground outline-none focus:border-accent"
           />
-          <span className="text-xs text-zinc-400">일 (음수는 이전)</span>
+          <span className="text-xs text-subtle">일 (음수는 이전)</span>
         </div>
       )}
       {value.type === "fixed" && (
@@ -73,12 +71,10 @@ export function TaskDateSpecInput({
           type="date"
           value={value.date}
           onChange={(e) => onChange({ type: "fixed", date: e.target.value })}
-          className="rounded-lg border border-zinc-200 px-2 py-1.5 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+          className="rounded-lg border border-border bg-surface px-2 py-1.5 text-sm text-foreground outline-none focus:border-accent"
         />
       )}
-      {resolved && value.type === "relative" && (
-        <p className="text-xs text-zinc-400">→ {formatDateDisplay(resolved)}</p>
-      )}
+      {resolved && value.type === "relative" && <p className="text-xs text-subtle">→ {formatDateDisplay(resolved)}</p>}
     </div>
   );
 }

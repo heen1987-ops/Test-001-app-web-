@@ -10,12 +10,12 @@ export function MoneyAmount({
   className?: string;
 }) {
   if (amount == null) {
-    return <span className={`text-zinc-400 dark:text-zinc-500 ${className ?? ""}`}>{unknownLabel}</span>;
+    return <span className={`text-subtle ${className ?? ""}`}>{unknownLabel}</span>;
   }
   const sign = amount < 0 ? "-" : "";
   const formatted = Math.abs(amount).toLocaleString("ko-KR");
   return (
-    <span className={className}>
+    <span className={`font-mono tabular-nums ${className ?? ""}`}>
       {sign}
       {formatted}원
     </span>

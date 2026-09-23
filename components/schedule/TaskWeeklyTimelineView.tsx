@@ -26,17 +26,17 @@ export function TaskWeeklyTimelineView({ tasks, onOpen }: { tasks: Task[]; onOpe
         <button
           type="button"
           onClick={() => setWeekOffset((w) => w - 1)}
-          className="rounded-lg px-2 py-1 text-sm text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+          className="rounded-lg px-2 py-1 text-sm font-semibold text-muted hover:bg-surface-2"
         >
           ← 이전 주
         </button>
-        <span className="text-sm text-zinc-500">
+        <span className="font-mono text-sm text-muted">
           {formatDateDisplay(days[0])} – {formatDateDisplay(days[6])}
         </span>
         <button
           type="button"
           onClick={() => setWeekOffset((w) => w + 1)}
-          className="rounded-lg px-2 py-1 text-sm text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+          className="rounded-lg px-2 py-1 text-sm font-semibold text-muted hover:bg-surface-2"
         >
           다음 주 →
         </button>
@@ -48,13 +48,13 @@ export function TaskWeeklyTimelineView({ tasks, onOpen }: { tasks: Task[]; onOpe
           const isToday = day === today();
           return (
             <div key={day} className="flex flex-col gap-2">
-              <p className={`text-xs font-medium ${isToday ? "text-indigo-600 dark:text-indigo-400" : "text-zinc-400"}`}>
+              <p className={`text-xs font-bold ${isToday ? "text-accent-ink" : "text-subtle"}`}>
                 {WEEKDAY_LABELS[new Date(`${day}T12:00:00Z`).getUTCDay()]} · {formatDateDisplay(day).slice(5)}
                 {i === 0 && weekOffset === 0 && " (오늘)"}
               </p>
               <div className="flex flex-col gap-1.5">
                 {dayTasks.length === 0 ? (
-                  <div className="h-1 rounded bg-zinc-50 dark:bg-zinc-900" />
+                  <div className="h-1 rounded bg-surface-2" />
                 ) : (
                   dayTasks.map((t) => <TaskListItem key={t.id} task={t} onOpen={onOpen} />)
                 )}

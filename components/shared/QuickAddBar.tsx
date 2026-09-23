@@ -18,12 +18,12 @@ export function QuickAddBar({ placeholder, onSubmit }: { placeholder: string; on
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder={placeholder}
-        className="flex-1 rounded-lg border border-zinc-200 px-3 py-2 text-sm outline-none focus:border-zinc-400 dark:border-zinc-700 dark:bg-zinc-950"
+        className="flex-1 rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none transition-colors focus:border-accent focus:ring-2 focus:ring-accent/15"
       />
       <button
         type="submit"
         disabled={!value.trim()}
-        className="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-700 disabled:opacity-40 dark:bg-zinc-100 dark:text-zinc-900"
+        className="rounded-lg bg-accent px-4 py-2 text-sm font-bold text-white shadow-card transition-colors hover:bg-accent-ink disabled:opacity-40"
       >
         추가
       </button>

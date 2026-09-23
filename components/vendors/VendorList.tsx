@@ -11,13 +11,13 @@ const STATUS_LABEL: Record<BookingStatus, string> = {
 };
 
 const STATUS_STYLE: Record<BookingStatus, string> = {
-  not_contacted: "bg-zinc-100 text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400",
-  quote_requested: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",
-  quoted: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",
-  booked: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
-  confirmed: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
-  completed: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
-  cancelled: "bg-zinc-100 text-zinc-400 line-through dark:bg-zinc-800 dark:text-zinc-500",
+  not_contacted: "bg-surface-2 text-muted border-border",
+  quote_requested: "bg-warning-bg text-warning-ink border-warning/20",
+  quoted: "bg-warning-bg text-warning-ink border-warning/20",
+  booked: "bg-accent-light text-accent-ink border-accent/20",
+  confirmed: "bg-positive-bg text-positive-ink border-positive/20",
+  completed: "bg-positive-bg text-positive-ink border-positive/20",
+  cancelled: "bg-surface-2 text-subtle line-through border-border",
 };
 
 export function VendorList({ vendors, onOpen }: { vendors: Vendor[]; onOpen: (vendor: Vendor) => void }) {
@@ -28,13 +28,17 @@ export function VendorList({ vendors, onOpen }: { vendors: Vendor[]; onOpen: (ve
           key={v.id}
           type="button"
           onClick={() => onOpen(v)}
-          className="flex items-center justify-between rounded-lg border border-zinc-200 bg-white px-3 py-2.5 text-left dark:border-zinc-800 dark:bg-zinc-900"
+          className="flex items-center justify-between rounded-lg border border-border bg-surface px-3 py-2.5 text-left shadow-card transition-colors hover:border-accent/30"
         >
           <div className="flex flex-col">
-            <span className="text-sm font-medium text-zinc-800 dark:text-zinc-100">{v.name}</span>
-            {v.category && <span className="text-xs text-zinc-400">{v.category}</span>}
+            <span className="text-sm font-semibold text-foreground">{v.name}</span>
+            {v.category && <span className="text-xs text-subtle">{v.category}</span>}
           </div>
-          <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_STYLE[v.bookingStatus]}`}>{STATUS_LABEL[v.bookingStatus]}</span>
+          <span
+            className={`rounded-full border px-2 py-0.5 font-mono text-[11px] font-bold ${STATUS_STYLE[v.bookingStatus]}`}
+          >
+            {STATUS_LABEL[v.bookingStatus]}
+          </span>
         </button>
       ))}
     </div>

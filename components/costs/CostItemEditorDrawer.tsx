@@ -138,33 +138,33 @@ function CostItemEditorForm({
   return (
     <div className="flex flex-col gap-4">
       <label className="flex flex-col gap-1 text-sm">
-        <span className="font-medium text-zinc-700 dark:text-zinc-300">이름</span>
+        <span className="font-semibold text-foreground">이름</span>
           <input
             autoFocus
             value={form.name}
             onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
             placeholder="예: 포장이사 업체"
-            className="rounded-lg border border-zinc-200 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+            className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
           />
         </label>
 
         <div className="grid grid-cols-2 gap-3">
           <label className="flex flex-col gap-1 text-sm">
-            <span className="font-medium text-zinc-700 dark:text-zinc-300">{kind === "expense" ? "실비 분류" : "자금 분류"}</span>
+            <span className="font-semibold text-foreground">{kind === "expense" ? "실비 분류" : "자금 분류"}</span>
             <input
               value={form.categoryFree}
               onChange={(e) => setForm((f) => ({ ...f, categoryFree: e.target.value }))}
               placeholder={kind === "expense" ? "예: 운송, 청소" : "예: 보증금, 대출"}
-              className="rounded-lg border border-zinc-200 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+              className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
             />
           </label>
           {kind === "fund" ? (
             <label className="flex flex-col gap-1 text-sm">
-              <span className="font-medium text-zinc-700 dark:text-zinc-300">방향</span>
+              <span className="font-semibold text-foreground">방향</span>
               <select
                 value={form.direction}
                 onChange={(e) => setForm((f) => ({ ...f, direction: e.target.value as "inflow" | "outflow" }))}
-                className="rounded-lg border border-zinc-200 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+                className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
               >
                 <option value="outflow">지출 (나가는 돈)</option>
                 <option value="inflow">수입 (들어오는 돈)</option>
@@ -172,22 +172,22 @@ function CostItemEditorForm({
             </label>
           ) : (
             <label className="flex flex-col gap-1 text-sm">
-              <span className="font-medium text-zinc-700 dark:text-zinc-300">세부</span>
+              <span className="font-semibold text-foreground">세부</span>
               <input
                 value={form.subCategory}
                 onChange={(e) => setForm((f) => ({ ...f, subCategory: e.target.value }))}
-                className="rounded-lg border border-zinc-200 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+                className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
               />
             </label>
           )}
         </div>
 
         <label className="flex flex-col gap-1 text-sm">
-          <span className="font-medium text-zinc-700 dark:text-zinc-300">상태</span>
+          <span className="font-semibold text-foreground">상태</span>
           <select
             value={form.status}
             onChange={(e) => setForm((f) => ({ ...f, status: e.target.value as CostItemStatus }))}
-            className="rounded-lg border border-zinc-200 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+            className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
           >
             {STATUS_OPTIONS.map(([v, l]) => (
               <option key={v} value={v}>
@@ -199,11 +199,11 @@ function CostItemEditorForm({
 
         {data.vendors.length > 0 && (
           <label className="flex flex-col gap-1 text-sm">
-            <span className="font-medium text-zinc-700 dark:text-zinc-300">업체</span>
+            <span className="font-semibold text-foreground">업체</span>
             <select
               value={form.vendorId ?? ""}
               onChange={(e) => setForm((f) => ({ ...f, vendorId: e.target.value || null }))}
-              className="rounded-lg border border-zinc-200 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+              className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
             >
               <option value="">선택 안 함</option>
               {data.vendors.map((v) => (
@@ -217,36 +217,36 @@ function CostItemEditorForm({
 
         <div className="grid grid-cols-2 gap-3">
           <label className="flex flex-col gap-1 text-sm">
-            <span className="font-medium text-zinc-700 dark:text-zinc-300">예상 금액</span>
+            <span className="font-semibold text-foreground">예상 금액</span>
             <input
               type="number"
               inputMode="numeric"
               value={form.estimatedAmount}
               onChange={(e) => setForm((f) => ({ ...f, estimatedAmount: e.target.value }))}
               placeholder="미정이면 비워두세요"
-              className="rounded-lg border border-zinc-200 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+              className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
             />
           </label>
           <label className="flex flex-col gap-1 text-sm">
-            <span className="font-medium text-zinc-700 dark:text-zinc-300">확정 금액</span>
+            <span className="font-semibold text-foreground">확정 금액</span>
             <input
               type="number"
               inputMode="numeric"
               value={form.confirmedAmount}
               onChange={(e) => setForm((f) => ({ ...f, confirmedAmount: e.target.value }))}
               placeholder="계약 전이면 비워두세요"
-              className="rounded-lg border border-zinc-200 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+              className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
             />
           </label>
         </div>
 
         <label className="flex flex-col gap-1 text-sm">
-          <span className="font-medium text-zinc-700 dark:text-zinc-300">메모</span>
+          <span className="font-semibold text-foreground">메모</span>
           <textarea
             value={form.notes}
             onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))}
             rows={2}
-            className="rounded-lg border border-zinc-200 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+            className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
           />
         </label>
 
@@ -254,18 +254,18 @@ function CostItemEditorForm({
           type="button"
           onClick={handleSave}
           disabled={!form.name.trim()}
-          className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-500 disabled:opacity-50"
+          className="rounded-lg bg-accent px-4 py-2 text-sm font-bold text-white shadow-card hover:bg-accent-ink disabled:opacity-50"
         >
           {item ? "저장" : "추가"}
         </button>
 
         {item && (
           <>
-            <hr className="border-zinc-200 dark:border-zinc-800" />
+            <hr className="border-border" />
 
             {data.vendors.length > 0 && (
               <div className="flex flex-col gap-2">
-                <p className="text-sm font-medium text-zinc-700 dark:text-zinc-300">견적 비교</p>
+                <p className="text-sm font-semibold text-foreground">견적 비교</p>
                 {item.quotes.length > 0 && (
                   <ul className="flex flex-col gap-1">
                     {item.quotes.map((q) => {
@@ -275,16 +275,16 @@ function CostItemEditorForm({
                         <li
                           key={q.id}
                           className={`flex items-center justify-between rounded-lg border px-2.5 py-1.5 text-sm ${
-                            selected ? "border-indigo-300 bg-indigo-50 dark:border-indigo-800 dark:bg-indigo-950/30" : "border-zinc-200 dark:border-zinc-700"
+                            selected ? "border-accent/30 bg-accent-light" : "border-border"
                           }`}
                         >
-                          <span>{vendor?.name ?? "알 수 없는 업체"}</span>
+                          <span className="text-foreground">{vendor?.name ?? "알 수 없는 업체"}</span>
                           <div className="flex items-center gap-2">
-                            <MoneyAmount amount={q.amount} className="text-zinc-500" />
+                            <MoneyAmount amount={q.amount} className="text-muted" />
                             <button
                               type="button"
                               onClick={() => selectQuote(q.id)}
-                              className={`text-xs font-medium ${selected ? "text-indigo-600" : "text-zinc-400 hover:text-zinc-600"}`}
+                              className={`text-xs font-bold ${selected ? "text-accent-ink" : "text-subtle hover:text-foreground"}`}
                             >
                               {selected ? "선택됨" : "선택"}
                             </button>
@@ -298,7 +298,7 @@ function CostItemEditorForm({
                   <select
                     value={newQuoteVendorId}
                     onChange={(e) => setNewQuoteVendorId(e.target.value)}
-                    className="flex-1 rounded-lg border border-zinc-200 px-2 py-1.5 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+                    className="flex-1 rounded-lg border border-border bg-surface px-2 py-1.5 text-sm text-foreground outline-none focus:border-accent"
                   >
                     <option value="">업체 선택</option>
                     {data.vendors.map((v) => (
@@ -312,21 +312,21 @@ function CostItemEditorForm({
                     value={newQuoteAmount}
                     onChange={(e) => setNewQuoteAmount(e.target.value)}
                     placeholder="견적액"
-                    className="w-28 rounded-lg border border-zinc-200 px-2 py-1.5 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+                    className="w-28 rounded-lg border border-border bg-surface px-2 py-1.5 text-sm text-foreground outline-none focus:border-accent"
                   />
-                  <button type="button" onClick={handleAddQuote} className="rounded-lg bg-zinc-100 px-3 py-1.5 text-sm dark:bg-zinc-800">
+                  <button type="button" onClick={handleAddQuote} className="rounded-lg bg-surface-2 px-3 py-1.5 text-sm font-semibold text-foreground">
                     추가
                   </button>
                 </div>
               </div>
             )}
 
-            <hr className="border-zinc-200 dark:border-zinc-800" />
+            <hr className="border-border" />
 
             <div className="flex flex-col gap-2">
               <div className="flex items-center justify-between">
-                <p className="text-sm font-medium text-zinc-700 dark:text-zinc-300">지급내역</p>
-                <p className="text-xs text-zinc-400">
+                <p className="text-sm font-semibold text-foreground">지급내역</p>
+                <p className="text-xs text-subtle">
                   남은 예상액: <MoneyAmount amount={stillDue} />
                 </p>
               </div>
@@ -359,7 +359,7 @@ function CostItemEditorForm({
                 <button
                   type="button"
                   onClick={() => setAddingPayment(true)}
-                  className="rounded-lg border border-dashed border-zinc-300 px-3 py-2 text-sm text-zinc-500 hover:border-zinc-400 dark:border-zinc-700"
+                  className="rounded-lg border border-dashed border-border px-3 py-2 text-sm font-semibold text-muted hover:border-accent hover:text-accent-ink"
                 >
                   + 지급 내역 추가
                 </button>
@@ -392,18 +392,18 @@ function PaymentRowDisplay({
   const TYPE_LABEL: Record<Payment["type"], string> = { deposit: "계약금", interim: "중도금", balance: "잔금", refund: "환불", other: "기타" };
   const STATUS_LABEL: Record<Payment["status"], string> = { scheduled: "예정", paid: "완료", cancelled: "취소" };
   return (
-    <div className="flex items-center justify-between rounded-lg border border-zinc-200 px-2.5 py-1.5 text-sm dark:border-zinc-700">
+    <div className="flex items-center justify-between rounded-lg border border-border bg-surface px-2.5 py-1.5 text-sm">
       <div className="flex flex-col">
-        <span className="text-zinc-700 dark:text-zinc-300">
+        <span className="font-medium text-foreground">
           {TYPE_LABEL[payment.type]} · {STATUS_LABEL[payment.status]}
         </span>
-        <MoneyAmount amount={payment.amount} className="text-xs text-zinc-400" />
+        <MoneyAmount amount={payment.amount} className="text-xs text-subtle" />
       </div>
       <div className="flex gap-2">
-        <button type="button" onClick={onEdit} className="text-xs text-zinc-400 hover:text-zinc-600">
+        <button type="button" onClick={onEdit} className="text-xs font-semibold text-subtle hover:text-foreground">
           수정
         </button>
-        <button type="button" onClick={onDelete} className="text-xs text-rose-400 hover:text-rose-600">
+        <button type="button" onClick={onDelete} className="text-xs font-semibold text-negative hover:text-negative-ink">
           삭제
         </button>
       </div>

@@ -40,20 +40,20 @@ export function TaskMonthlyCalendarView({ tasks, onOpen }: { tasks: Task[]; onOp
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-center justify-between">
-        <button type="button" onClick={goPrev} className="rounded-lg px-2 py-1 text-sm text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-800">
+        <button type="button" onClick={goPrev} className="rounded-lg px-2 py-1 text-sm font-semibold text-muted hover:bg-surface-2">
           ← 이전 달
         </button>
-        <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+        <span className="text-sm font-bold text-foreground">
           {year}년 {month}월
         </span>
-        <button type="button" onClick={goNext} className="rounded-lg px-2 py-1 text-sm text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-800">
+        <button type="button" onClick={goNext} className="rounded-lg px-2 py-1 text-sm font-semibold text-muted hover:bg-surface-2">
           다음 달 →
         </button>
       </div>
 
-      <div className="grid grid-cols-7 gap-px overflow-hidden rounded-lg border border-zinc-200 bg-zinc-200 text-xs dark:border-zinc-800 dark:bg-zinc-800">
+      <div className="grid grid-cols-7 gap-px overflow-hidden rounded-lg border border-border bg-border text-xs">
         {WEEKDAY_LABELS.map((label) => (
-          <div key={label} className="bg-zinc-50 py-1 text-center font-medium text-zinc-500 dark:bg-zinc-900 dark:text-zinc-400">
+          <div key={label} className="bg-surface-2 py-1 text-center font-semibold text-muted">
             {label}
           </div>
         ))}
@@ -62,11 +62,8 @@ export function TaskMonthlyCalendarView({ tasks, onOpen }: { tasks: Task[]; onOp
           const inMonth = day.startsWith(monthPrefix);
           const isToday = day === today();
           return (
-            <div
-              key={day}
-              className={`min-h-20 bg-white p-1 dark:bg-zinc-950 ${inMonth ? "" : "opacity-40"}`}
-            >
-              <p className={`mb-1 text-right ${isToday ? "font-bold text-indigo-600 dark:text-indigo-400" : "text-zinc-400"}`}>
+            <div key={day} className={`min-h-20 bg-surface p-1 ${inMonth ? "" : "opacity-40"}`}>
+              <p className={`mb-1 text-right font-mono ${isToday ? "font-bold text-accent-ink" : "text-subtle"}`}>
                 {Number(day.slice(8, 10))}
               </p>
               <div className="flex flex-col gap-0.5">
@@ -76,15 +73,13 @@ export function TaskMonthlyCalendarView({ tasks, onOpen }: { tasks: Task[]; onOp
                     type="button"
                     onClick={() => onOpen(t)}
                     className={`truncate rounded px-1 py-0.5 text-left text-[11px] ${
-                      t.status === "done"
-                        ? "bg-zinc-100 text-zinc-400 line-through dark:bg-zinc-900"
-                        : "bg-indigo-50 text-indigo-700 dark:bg-indigo-950/50 dark:text-indigo-300"
+                      t.status === "done" ? "bg-surface-2 text-subtle line-through" : "bg-accent-light text-accent-ink"
                     }`}
                   >
                     {t.title}
                   </button>
                 ))}
-                {dayTasks.length > 3 && <p className="text-[11px] text-zinc-400">+{dayTasks.length - 3}개 더</p>}
+                {dayTasks.length > 3 && <p className="text-[11px] text-subtle">+{dayTasks.length - 3}개 더</p>}
               </div>
             </div>
           );

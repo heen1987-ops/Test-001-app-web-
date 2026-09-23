@@ -92,43 +92,43 @@ function TaskEditorForm({ task, onClose }: { task: Task | null; onClose: () => v
   return (
     <div className="flex flex-col gap-4">
       <label className="flex flex-col gap-1 text-sm">
-        <span className="font-medium text-zinc-700 dark:text-zinc-300">제목</span>
+        <span className="font-semibold text-foreground">제목</span>
           <input
             autoFocus
             value={form.title}
             onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
-            className="rounded-lg border border-zinc-200 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+            className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
           />
         </label>
 
         <div className="grid grid-cols-2 gap-3">
           <label className="flex flex-col gap-1 text-sm">
-            <span className="font-medium text-zinc-700 dark:text-zinc-300">분류</span>
+            <span className="font-semibold text-foreground">분류</span>
             <input
               value={form.category}
               onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))}
               placeholder="예: 행정, 포장"
-              className="rounded-lg border border-zinc-200 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+              className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
             />
           </label>
           <label className="flex flex-col gap-1 text-sm">
-            <span className="font-medium text-zinc-700 dark:text-zinc-300">담당</span>
+            <span className="font-semibold text-foreground">담당</span>
             <input
               value={form.assignee}
               onChange={(e) => setForm((f) => ({ ...f, assignee: e.target.value }))}
               placeholder="예: 나, 배우자"
-              className="rounded-lg border border-zinc-200 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+              className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
             />
           </label>
         </div>
 
         <div className="grid grid-cols-2 gap-3">
           <label className="flex flex-col gap-1 text-sm">
-            <span className="font-medium text-zinc-700 dark:text-zinc-300">상태</span>
+            <span className="font-semibold text-foreground">상태</span>
             <select
               value={form.status}
               onChange={(e) => setForm((f) => ({ ...f, status: e.target.value as TaskStatus }))}
-              className="rounded-lg border border-zinc-200 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+              className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
             >
               {STATUS_OPTIONS.map(([v, l]) => (
                 <option key={v} value={v}>
@@ -138,11 +138,11 @@ function TaskEditorForm({ task, onClose }: { task: Task | null; onClose: () => v
             </select>
           </label>
           <label className="flex flex-col gap-1 text-sm">
-            <span className="font-medium text-zinc-700 dark:text-zinc-300">우선순위</span>
+            <span className="font-semibold text-foreground">우선순위</span>
             <select
               value={form.priority}
               onChange={(e) => setForm((f) => ({ ...f, priority: e.target.value as TaskPriority }))}
-              className="rounded-lg border border-zinc-200 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+              className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
             >
               {PRIORITY_OPTIONS.map(([v, l]) => (
                 <option key={v} value={v}>
@@ -168,8 +168,8 @@ function TaskEditorForm({ task, onClose }: { task: Task | null; onClose: () => v
 
         {otherTasks.length > 0 && (
           <div className="flex flex-col gap-1 text-sm">
-            <span className="font-medium text-zinc-700 dark:text-zinc-300">선행 작업</span>
-            <div className="flex max-h-32 flex-col gap-1 overflow-y-auto rounded-lg border border-zinc-200 p-2 dark:border-zinc-700">
+            <span className="font-semibold text-foreground">선행 작업</span>
+            <div className="flex max-h-32 flex-col gap-1 overflow-y-auto rounded-lg border border-border bg-surface p-2">
               {otherTasks.map((t) => (
                 <label key={t.id} className="flex items-center gap-2 text-sm">
                   <input
@@ -191,11 +191,11 @@ function TaskEditorForm({ task, onClose }: { task: Task | null; onClose: () => v
 
         {data.costItems.length > 0 && (
           <label className="flex flex-col gap-1 text-sm">
-            <span className="font-medium text-zinc-700 dark:text-zinc-300">연결된 비용 항목</span>
+            <span className="font-semibold text-foreground">연결된 비용 항목</span>
             <select
               value={form.costItemId ?? ""}
               onChange={(e) => setForm((f) => ({ ...f, costItemId: e.target.value || null }))}
-              className="rounded-lg border border-zinc-200 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+              className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
             >
               <option value="">연결 안 함</option>
               {data.costItems.map((c) => (
@@ -208,12 +208,12 @@ function TaskEditorForm({ task, onClose }: { task: Task | null; onClose: () => v
         )}
 
         <label className="flex flex-col gap-1 text-sm">
-          <span className="font-medium text-zinc-700 dark:text-zinc-300">메모</span>
+          <span className="font-semibold text-foreground">메모</span>
           <textarea
             value={form.notes}
             onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))}
             rows={3}
-            className="rounded-lg border border-zinc-200 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+            className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
           />
         </label>
 
@@ -222,7 +222,7 @@ function TaskEditorForm({ task, onClose }: { task: Task | null; onClose: () => v
             <button
               type="button"
               onClick={handleDelete}
-              className="rounded-lg px-3 py-2 text-sm font-medium text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30"
+              className="rounded-lg px-3 py-2 text-sm font-semibold text-negative hover:bg-negative-bg"
             >
               삭제
             </button>
@@ -233,7 +233,7 @@ function TaskEditorForm({ task, onClose }: { task: Task | null; onClose: () => v
             type="button"
             onClick={handleSave}
             disabled={!form.title.trim()}
-            className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-500 disabled:opacity-50"
+            className="rounded-lg bg-accent px-4 py-2 text-sm font-bold text-white shadow-card hover:bg-accent-ink disabled:opacity-50"
           >
             저장
           </button>

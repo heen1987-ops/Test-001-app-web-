@@ -3,42 +3,21 @@ import Link from "next/link";
 import { useMemo, type ReactNode } from "react";
 import { MoneyAmount } from "@/components/shared/MoneyAmount";
 import { ProgressBar } from "@/components/shared/ProgressBar";
-import { StatusPill } from "@/components/shared/StatusPill";
+import { TodoWidget } from "@/components/dashboard/TodoWidget";
 import { isExpense } from "@/lib/aggregation";
 import { computeDashboardSummary } from "@/lib/dashboard";
 import { today } from "@/lib/dates";
 import { useAppData } from "@/lib/client/store";
 
-function Card({ title, href, children }: { title: string; href?: string; children: ReactNode }) {
-  const body = (
-    <div className="rounded-xl border border-zinc-200 bg-white p-4 transition-colors hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-700">
-      <p className="mb-3 text-sm font-medium text-zinc-500 dark:text-zinc-400">{title}</p>
-      {children}
-    </div>
-  );
-  return href ? (
-    <Link href={href} className="block">
-      {body}
-    </Link>
-  ) : (
-    body
-  );
-}
-
-function TaskMiniList({ tasks, emptyLabel }: { tasks: { id: string; title: string; status: "todo" | "in_progress" | "done" | "cancelled" }[]; emptyLabel: string }) {
-  if (tasks.length === 0) {
-    return <p className="text-sm text-zinc-400 dark:text-zinc-600">{emptyLabel}</p>;
-  }
+function StatTile({ label, children, href }: { label: string; children: ReactNode; href: string }) {
   return (
-    <ul className="flex flex-col gap-2">
-      {tasks.slice(0, 5).map((t) => (
-        <li key={t.id} className="flex items-center justify-between gap-2 text-sm">
-          <span className="truncate text-zinc-700 dark:text-zinc-300">{t.title}</span>
-          <StatusPill status={t.status} />
-        </li>
-      ))}
-      {tasks.length > 5 && <li className="text-xs text-zinc-400">외 {tasks.length - 5}건</li>}
-    </ul>
+    <Link
+      href={href}
+      className="flex flex-col gap-1 rounded-xl border border-border bg-surface p-4 shadow-card transition-all hover:-translate-y-0.5 hover:shadow-card-md"
+    >
+      <span className="text-xs font-semibold text-muted">{label}</span>
+      {children}
+    </Link>
   );
 }
 
@@ -47,91 +26,89 @@ export default function HomePage() {
   const summary = useMemo(() => (data ? computeDashboardSummary(data, today()) : null), [data]);
 
   if (!data || !summary) {
-    return <div className="py-20 text-center text-sm text-zinc-400">불러오는 중…</div>;
+    return <div className="py-20 text-center text-sm text-subtle">불러오는 중…</div>;
   }
 
   const { project } = data;
+  const hasExpenses = data.costItems.filter(isExpense).length > 0;
+  const budgetRatio =
+    summary.budget.budget != null && summary.budget.budget > 0
+      ? summary.budget.projectedFinalCost.total / summary.budget.budget
+      : null;
 
   return (
-    <div className="flex flex-col gap-6">
-      <div>
-        <h1 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100">{project.name}</h1>
-        <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
-          {summary.daysUntilMove == null
-            ? "이사일이 아직 설정되지 않았습니다."
-            : summary.daysUntilMove >= 0
-              ? `이사까지 D-${summary.daysUntilMove}`
-              : `이사일이 ${-summary.daysUntilMove}일 지났습니다.`}
-        </p>
+    <div className="flex flex-col gap-5">
+      {/* 히어로 D-day 배너 */}
+      <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl bg-gradient-to-br from-blue-800 to-accent p-6 text-white shadow-card-md">
+        <div className="flex flex-col gap-1.5">
+          <span className="w-fit rounded-full bg-white/20 px-2.5 py-0.5 text-[11px] font-bold backdrop-blur-sm">
+            {project.contractType ?? "이사 프로젝트"}
+          </span>
+          <h1 className="text-lg font-extrabold tracking-tight">{project.name}</h1>
+          {project.moveDate && <p className="text-sm text-white/85">이사일 {project.moveDate}</p>}
+        </div>
+        <div className="rounded-xl border border-white/25 bg-white/15 px-5 py-2 text-center font-mono">
+          {summary.daysUntilMove == null ? (
+            <span className="text-base font-bold">이사일 미정</span>
+          ) : (
+            <>
+              <span className="text-3xl font-extrabold tracking-tight">
+                {summary.daysUntilMove >= 0 ? `D-${summary.daysUntilMove}` : `D+${-summary.daysUntilMove}`}
+              </span>
+              {summary.daysUntilMove < 0 && <span className="ml-1 block text-[11px] font-semibold">이사일 경과</span>}
+            </>
+          )}
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <Card title="전체 진행률" href="/schedule">
+      {/* 지표 카드 */}
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+        <StatTile label="전체 진행률" href="/schedule">
           {summary.taskCompletionPct == null ? (
-            <p className="text-sm text-zinc-400 dark:text-zinc-600">아직 등록된 할 일이 없습니다.</p>
+            <span className="text-sm text-subtle">할 일 없음</span>
           ) : (
             <>
-              <p className="mb-2 text-2xl font-semibold text-zinc-900 dark:text-zinc-100">
+              <span className="font-mono text-2xl font-extrabold text-foreground">
                 {Math.round(summary.taskCompletionPct * 100)}%
-              </p>
-              <ProgressBar ratio={summary.taskCompletionPct} />
+              </span>
+              <ProgressBar ratio={summary.taskCompletionPct} className="mt-1" />
             </>
           )}
-        </Card>
+        </StatTile>
 
-        <Card title="오늘 할 일" href="/schedule">
-          <TaskMiniList tasks={summary.todayTasks} emptyLabel="오늘 예정된 할 일이 없습니다." />
-        </Card>
-
-        <Card title="기한이 지난 일" href="/schedule">
-          <TaskMiniList tasks={summary.overdueTasks} emptyLabel="지연된 할 일이 없습니다." />
-        </Card>
-
-        <Card title="이번 주 일정" href="/schedule">
-          <TaskMiniList tasks={summary.thisWeekTasks} emptyLabel="이번 주 예정된 일정이 없습니다." />
-        </Card>
-
-        <Card title="예산 대비 예상 총액" href="/costs">
-          {data.costItems.filter(isExpense).length === 0 ? (
-            <p className="text-sm text-zinc-400 dark:text-zinc-600">등록된 비용 항목이 없습니다.</p>
+        <StatTile label="예산 대비 예상 총액" href="/costs">
+          {!hasExpenses ? (
+            <span className="text-sm text-subtle">비용 없음</span>
           ) : (
             <>
-              <p className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
-                <MoneyAmount amount={summary.budget.projectedFinalCost.total} />
-                {summary.budget.budget != null && (
-                  <span className="ml-1 text-sm font-normal text-zinc-400">
-                    {" "}
-                    / <MoneyAmount amount={summary.budget.budget} />
-                  </span>
-                )}
-              </p>
+              <MoneyAmount amount={summary.budget.projectedFinalCost.total} className="text-lg font-extrabold text-foreground" />
               {summary.budget.budget != null && (
-                <ProgressBar
-                  ratio={summary.budget.projectedFinalCost.total / summary.budget.budget}
-                  className="mt-2"
-                />
+                <span className="text-xs text-subtle">
+                  / <MoneyAmount amount={summary.budget.budget} />
+                </span>
               )}
+              {budgetRatio != null && <ProgressBar ratio={budgetRatio} className="mt-1" />}
               {summary.budget.projectedFinalCost.unknownCount > 0 && (
-                <p className="mt-1 text-xs text-amber-600 dark:text-amber-400">
-                  금액 미정 {summary.budget.projectedFinalCost.unknownCount}건 제외한 소계
-                </p>
+                <span className="text-[11px] text-warning-ink">
+                  미정 {summary.budget.projectedFinalCost.unknownCount}건 제외
+                </span>
               )}
             </>
           )}
-        </Card>
+        </StatTile>
 
-        <Card title="지급 완료 / 예정" href="/costs">
-          <p className="text-sm text-zinc-700 dark:text-zinc-300">
-            완료 <MoneyAmount amount={summary.paymentsDue.totalPaid} className="font-semibold" />
-          </p>
-          <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+        <StatTile label="지급 완료 / 예정" href="/costs">
+          <MoneyAmount amount={summary.paymentsDue.totalPaid} className="text-lg font-extrabold text-foreground" />
+          <span className="text-xs text-subtle">
             예정 <MoneyAmount amount={summary.paymentsDue.totalScheduled} />
-          </p>
+          </span>
           {summary.paymentsDue.unknownCount > 0 && (
-            <p className="mt-1 text-xs text-amber-600 dark:text-amber-400">금액 미정 {summary.paymentsDue.unknownCount}건</p>
+            <span className="text-[11px] text-warning-ink">미정 {summary.paymentsDue.unknownCount}건</span>
           )}
-        </Card>
+        </StatTile>
       </div>
+
+      <TodoWidget />
     </div>
   );
 }

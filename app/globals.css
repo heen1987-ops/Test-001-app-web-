@@ -1,26 +1,107 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8fafc;
+  --surface: #ffffff;
+  --surface-2: #f1f5f9;
+  --surface-3: #e2e8f0;
+  --foreground: #0f172a;
+  --text-muted: #64748b;
+  --text-subtle: #94a3b8;
+  --border: #e2e8f0;
+
+  --accent: #2563eb;
+  --accent-light: #eff6ff;
+  --accent-ink: #1d4ed8;
+
+  --positive: #10b981;
+  --positive-bg: #ecfdf5;
+  --positive-ink: #047857;
+
+  --negative: #ef4444;
+  --negative-bg: #fef2f2;
+  --negative-ink: #b91c1c;
+
+  --warning: #f59e0b;
+  --warning-bg: #fffbeb;
+  --warning-ink: #b45309;
+
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.04);
+  --shadow-card: 0 4px 12px -2px rgb(0 0 0 / 0.06), 0 2px 6px -1px rgb(0 0 0 / 0.04);
+  --shadow-md: 0 10px 20px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.03);
+}
+
+.dark {
+  --background: #0b1220;
+  --surface: #121a2b;
+  --surface-2: #1a2436;
+  --surface-3: #263349;
+  --foreground: #e6ebf5;
+  --text-muted: #94a3b8;
+  --text-subtle: #64748b;
+  --border: #232f45;
+
+  --accent: #3b82f6;
+  --accent-light: #17233d;
+  --accent-ink: #93c5fd;
+
+  --positive: #34d399;
+  --positive-bg: #0d2420;
+  --positive-ink: #6ee7b7;
+
+  --negative: #f87171;
+  --negative-bg: #2a1518;
+  --negative-ink: #fca5a5;
+
+  --warning: #fbbf24;
+  --warning-bg: #2a2013;
+  --warning-ink: #fcd34d;
+
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.2);
+  --shadow-card: 0 4px 12px -2px rgb(0 0 0 / 0.35), 0 2px 6px -1px rgb(0 0 0 / 0.25);
+  --shadow-md: 0 10px 20px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.3);
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-muted: var(--text-muted);
+  --color-subtle: var(--text-subtle);
+  --color-border: var(--border);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --color-accent-ink: var(--accent-ink);
+
+  --color-positive: var(--positive);
+  --color-positive-bg: var(--positive-bg);
+  --color-positive-ink: var(--positive-ink);
+
+  --color-negative: var(--negative);
+  --color-negative-bg: var(--negative-bg);
+  --color-negative-ink: var(--negative-ink);
+
+  --color-warning: var(--warning);
+  --color-warning-bg: var(--warning-bg);
+  --color-warning-ink: var(--warning-ink);
+
+  --font-sans: "Pretendard", var(--font-geist-sans), -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-plex-mono), "IBM Plex Mono", ui-monospace, monospace;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.shadow-card {
+  box-shadow: var(--shadow-card);
+}
+.shadow-card-md {
+  box-shadow: var(--shadow-md);
 }

@@ -26,7 +26,11 @@ export default function SettingsPage() {
   const [pendingImport, setPendingImport] = useState<{ data: ProjectData; summary: ImportSummary } | null>(null);
   const [importErrors, setImportErrors] = useState<string[] | null>(null);
 
-  if (!data) return <div className="py-20 text-center text-sm text-zinc-400">불러오는 중…</div>;
+  if (!data) return <div className="py-20 text-center text-sm text-subtle">불러오는 중…</div>;
+
+  const sectionClass = "flex flex-col gap-4 rounded-xl border border-border bg-surface p-4 shadow-card";
+  const fieldInputClass =
+    "rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none transition-colors focus:border-accent focus:ring-2 focus:ring-accent/15";
 
   const moveDate = draftMoveDate ?? data.project.moveDate ?? "";
   const settlementDate = draftSettlementDate ?? data.project.settlementDate ?? "";
@@ -84,107 +88,106 @@ export default function SettingsPage() {
 
   return (
     <div className="flex flex-col gap-8 pb-10">
-      <h1 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100">설정</h1>
+      <h1 className="text-xl font-extrabold tracking-tight text-foreground">설정</h1>
 
-      <section className="flex flex-col gap-4 rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
-        <h2 className="text-sm font-semibold text-zinc-700 dark:text-zinc-300">기준일</h2>
+      <section className={sectionClass}>
+        <h2 className="text-sm font-bold text-foreground">기준일</h2>
         <div className="grid grid-cols-2 gap-3">
           <label className="flex flex-col gap-1 text-sm">
-            <span className="font-medium text-zinc-600 dark:text-zinc-400">이사일</span>
-            <input
-              type="date"
-              value={moveDate}
-              onChange={(e) => setDraftMoveDate(e.target.value)}
-              className="rounded-lg border border-zinc-200 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
-            />
+            <span className="font-semibold text-muted">이사일</span>
+            <input type="date" value={moveDate} onChange={(e) => setDraftMoveDate(e.target.value)} className={fieldInputClass} />
           </label>
           <label className="flex flex-col gap-1 text-sm">
-            <span className="font-medium text-zinc-600 dark:text-zinc-400">잔금일</span>
+            <span className="font-semibold text-muted">잔금일</span>
             <input
               type="date"
               value={settlementDate}
               onChange={(e) => setDraftSettlementDate(e.target.value)}
-              className="rounded-lg border border-zinc-200 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+              className={fieldInputClass}
             />
           </label>
         </div>
         {(draftMoveDate !== null || draftSettlementDate !== null) && (
-          <button type="button" onClick={handleSaveAnchors} className="w-fit rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-500">
+          <button
+            type="button"
+            onClick={handleSaveAnchors}
+            className="w-fit rounded-lg bg-accent px-4 py-2 text-sm font-bold text-white shadow-card hover:bg-accent-ink"
+          >
             기준일 저장
           </button>
         )}
       </section>
 
-      <section className="flex flex-col gap-4 rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
-        <h2 className="text-sm font-semibold text-zinc-700 dark:text-zinc-300">예산 · 자금</h2>
+      <section className={sectionClass}>
+        <h2 className="text-sm font-bold text-foreground">예산 · 자금</h2>
         <div className="grid grid-cols-2 gap-3">
           <label className="flex flex-col gap-1 text-sm">
-            <span className="font-medium text-zinc-600 dark:text-zinc-400">예산</span>
+            <span className="font-semibold text-muted">예산</span>
             <input
               type="number"
               defaultValue={data.project.budget ?? ""}
               onBlur={(e) => handleFieldSave({ budget: e.target.value.trim() === "" ? null : Number(e.target.value) })}
-              className="rounded-lg border border-zinc-200 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+              className={fieldInputClass}
             />
           </label>
           <label className="flex flex-col gap-1 text-sm">
-            <span className="font-medium text-zinc-600 dark:text-zinc-400">현재 보유 현금</span>
+            <span className="font-semibold text-muted">현재 보유 현금</span>
             <input
               type="number"
               defaultValue={data.project.startingCash ?? ""}
               onBlur={(e) => handleFieldSave({ startingCash: e.target.value.trim() === "" ? null : Number(e.target.value) })}
               placeholder="입력하면 보유 현금 전망을 계산합니다"
-              className="rounded-lg border border-zinc-200 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+              className={fieldInputClass}
             />
           </label>
         </div>
         <label className="flex flex-col gap-1 text-sm">
-          <span className="font-medium text-zinc-600 dark:text-zinc-400">계약 형태</span>
+          <span className="font-semibold text-muted">계약 형태</span>
           <input
             defaultValue={data.project.contractType ?? ""}
             onBlur={(e) => handleFieldSave({ contractType: e.target.value.trim() || null })}
             placeholder="예: 전세 / 매매 / 월세"
-            className="rounded-lg border border-zinc-200 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+            className={fieldInputClass}
           />
         </label>
       </section>
 
-      <section className="flex flex-col gap-3 rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
-        <h2 className="text-sm font-semibold text-zinc-700 dark:text-zinc-300">데이터 내보내기 · 가져오기</h2>
+      <section className={sectionClass}>
+        <h2 className="text-sm font-bold text-foreground">데이터 내보내기 · 가져오기</h2>
 
         <div className="flex flex-wrap gap-2">
           <button
             type="button"
             onClick={() => downloadTextFile(`${data.project.name}.json`, exportProjectJSON(data), "application/json")}
-            className="rounded-lg bg-zinc-100 px-3 py-1.5 text-sm dark:bg-zinc-800"
+            className="rounded-lg bg-surface-2 px-3 py-1.5 text-sm font-semibold text-foreground"
           >
             JSON 내보내기
           </button>
           <button
             type="button"
             onClick={() => downloadTextFile("할일.csv", tasksToCSV(data.tasks), "text/csv")}
-            className="rounded-lg bg-zinc-100 px-3 py-1.5 text-sm dark:bg-zinc-800"
+            className="rounded-lg bg-surface-2 px-3 py-1.5 text-sm font-semibold text-foreground"
           >
             할 일 CSV
           </button>
           <button
             type="button"
             onClick={() => downloadTextFile("비용항목.csv", costItemsToCSV(data.costItems), "text/csv")}
-            className="rounded-lg bg-zinc-100 px-3 py-1.5 text-sm dark:bg-zinc-800"
+            className="rounded-lg bg-surface-2 px-3 py-1.5 text-sm font-semibold text-foreground"
           >
             비용 CSV
           </button>
           <button
             type="button"
             onClick={() => downloadTextFile("지급내역.csv", paymentsToCSV(data.payments, data.costItems), "text/csv")}
-            className="rounded-lg bg-zinc-100 px-3 py-1.5 text-sm dark:bg-zinc-800"
+            className="rounded-lg bg-surface-2 px-3 py-1.5 text-sm font-semibold text-foreground"
           >
             지급내역 CSV
           </button>
           <button
             type="button"
             onClick={() => downloadTextFile("업체.csv", vendorsToCSV(data.vendors), "text/csv")}
-            className="rounded-lg bg-zinc-100 px-3 py-1.5 text-sm dark:bg-zinc-800"
+            className="rounded-lg bg-surface-2 px-3 py-1.5 text-sm font-semibold text-foreground"
           >
             업체 CSV
           </button>
@@ -205,15 +208,15 @@ export default function SettingsPage() {
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className="rounded-lg border border-dashed border-zinc-300 px-3 py-1.5 text-sm text-zinc-600 hover:border-zinc-400 dark:border-zinc-700 dark:text-zinc-400"
+            className="rounded-lg border border-dashed border-border px-3 py-1.5 text-sm font-semibold text-muted hover:border-accent hover:text-accent-ink"
           >
             JSON 파일에서 가져오기
           </button>
         </div>
 
         {importErrors && (
-          <div className="rounded-lg border border-rose-200 bg-rose-50 p-3 text-sm text-rose-700 dark:border-rose-900 dark:bg-rose-950/30 dark:text-rose-300">
-            <p className="font-medium">가져오기에 실패했습니다:</p>
+          <div className="rounded-lg border border-negative/25 bg-negative-bg p-3 text-sm text-negative-ink">
+            <p className="font-bold">가져오기에 실패했습니다:</p>
             <ul className="mt-1 list-disc pl-5">
               {importErrors.map((e, i) => (
                 <li key={i}>{e}</li>
@@ -223,8 +226,8 @@ export default function SettingsPage() {
         )}
 
         {pendingImport && (
-          <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800 dark:border-amber-900 dark:bg-amber-950/30 dark:text-amber-300">
-            <p className="font-medium">
+          <div className="rounded-lg border border-warning/25 bg-warning-bg p-3 text-sm text-warning-ink">
+            <p className="font-bold">
               &quot;{pendingImport.summary.projectName}&quot; 데이터로 현재 프로젝트를 덮어씁니다. 계속할까요?
             </p>
             <p className="mt-1 text-xs">
@@ -233,10 +236,14 @@ export default function SettingsPage() {
               {pendingImport.summary.referenceCount}건
             </p>
             <div className="mt-2 flex gap-2">
-              <button type="button" onClick={() => setPendingImport(null)} className="rounded-lg px-3 py-1.5 text-xs text-zinc-500 hover:bg-white/50">
+              <button type="button" onClick={() => setPendingImport(null)} className="rounded-lg px-3 py-1.5 text-xs font-semibold text-muted hover:bg-surface/50">
                 취소
               </button>
-              <button type="button" onClick={confirmImport} className="rounded-lg bg-amber-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-amber-500">
+              <button
+                type="button"
+                onClick={confirmImport}
+                className="rounded-lg bg-warning px-3 py-1.5 text-xs font-bold text-white hover:opacity-90"
+              >
                 덮어쓰기
               </button>
             </div>
@@ -244,17 +251,15 @@ export default function SettingsPage() {
         )}
       </section>
 
-      <section className="flex flex-col gap-3 rounded-xl border border-rose-200 bg-white p-4 dark:border-rose-900/50 dark:bg-zinc-900">
-        <h2 className="text-sm font-semibold text-rose-600 dark:text-rose-400">프로젝트 보관</h2>
-        <p className="text-sm text-zinc-500 dark:text-zinc-400">
-          목록에서 숨깁니다. 데이터는 저장소에 남아있고 완전히 삭제되지 않습니다.
-        </p>
+      <section className="flex flex-col gap-3 rounded-xl border border-negative/25 bg-surface p-4 shadow-card">
+        <h2 className="text-sm font-bold text-negative-ink">프로젝트 보관</h2>
+        <p className="text-sm text-muted">목록에서 숨깁니다. 데이터는 저장소에 남아있고 완전히 삭제되지 않습니다.</p>
         <button
           type="button"
           onClick={() => {
             if (confirm(`"${data.project.name}" 프로젝트를 보관할까요?`)) archiveCurrentProject();
           }}
-          className="w-fit rounded-lg border border-rose-300 px-3 py-1.5 text-sm text-rose-600 hover:bg-rose-50 dark:border-rose-800 dark:hover:bg-rose-950/30"
+          className="w-fit rounded-lg border border-negative/30 px-3 py-1.5 text-sm font-semibold text-negative-ink hover:bg-negative-bg"
         >
           이 프로젝트 보관하기
         </button>

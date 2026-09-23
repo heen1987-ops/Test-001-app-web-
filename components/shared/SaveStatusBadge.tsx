@@ -10,11 +10,11 @@ const LABELS: Record<string, string> = {
 };
 
 const DOT_STYLES: Record<string, string> = {
-  loading: "bg-zinc-300 animate-pulse",
-  saving: "bg-amber-400 animate-pulse",
-  saved: "bg-emerald-500",
-  error: "bg-rose-500",
-  conflict: "bg-rose-500",
+  loading: "bg-subtle animate-pulse",
+  saving: "bg-warning animate-pulse",
+  saved: "bg-positive",
+  error: "bg-negative",
+  conflict: "bg-negative",
 };
 
 function formatTime(iso: string): string {
@@ -26,12 +26,10 @@ export function SaveStatusBadge() {
   const { saveStatus, lastSavedAt } = useAppData();
 
   return (
-    <div className="flex items-center gap-1.5 text-xs text-zinc-500 dark:text-zinc-400">
+    <div className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface-2 px-2.5 py-1 font-mono text-[11px] font-semibold text-muted">
       <span className={`h-1.5 w-1.5 rounded-full ${DOT_STYLES[saveStatus]}`} />
       <span>{LABELS[saveStatus]}</span>
-      {saveStatus === "saved" && lastSavedAt && (
-        <span className="text-zinc-400 dark:text-zinc-600">· {formatTime(lastSavedAt)}</span>
-      )}
+      {saveStatus === "saved" && lastSavedAt && <span className="text-subtle">· {formatTime(lastSavedAt)}</span>}
     </div>
   );
 }

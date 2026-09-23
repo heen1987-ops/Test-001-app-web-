@@ -72,31 +72,31 @@ function VendorEditorForm({ vendor, onClose }: { vendor: Vendor | null; onClose:
   return (
     <div className="flex flex-col gap-4">
       <label className="flex flex-col gap-1 text-sm">
-        <span className="font-medium text-zinc-700 dark:text-zinc-300">업체명</span>
+        <span className="font-semibold text-foreground">업체명</span>
           <input
             autoFocus
             value={form.name}
             onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-            className="rounded-lg border border-zinc-200 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+            className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
           />
         </label>
 
         <div className="grid grid-cols-2 gap-3">
           <label className="flex flex-col gap-1 text-sm">
-            <span className="font-medium text-zinc-700 dark:text-zinc-300">분류</span>
+            <span className="font-semibold text-foreground">분류</span>
             <input
               value={form.category}
               onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))}
               placeholder="예: 이사업체, 청소"
-              className="rounded-lg border border-zinc-200 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+              className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
             />
           </label>
           <label className="flex flex-col gap-1 text-sm">
-            <span className="font-medium text-zinc-700 dark:text-zinc-300">예약 상태</span>
+            <span className="font-semibold text-foreground">예약 상태</span>
             <select
               value={form.bookingStatus}
               onChange={(e) => setForm((f) => ({ ...f, bookingStatus: e.target.value as BookingStatus }))}
-              className="rounded-lg border border-zinc-200 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+              className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
             >
               {STATUS_OPTIONS.map(([v, l]) => (
                 <option key={v} value={v}>
@@ -109,45 +109,45 @@ function VendorEditorForm({ vendor, onClose }: { vendor: Vendor | null; onClose:
 
         <div className="grid grid-cols-2 gap-3">
           <label className="flex flex-col gap-1 text-sm">
-            <span className="font-medium text-zinc-700 dark:text-zinc-300">전화</span>
+            <span className="font-semibold text-foreground">전화</span>
             <input
               value={form.phone}
               onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
-              className="rounded-lg border border-zinc-200 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+              className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
             />
           </label>
           <label className="flex flex-col gap-1 text-sm">
-            <span className="font-medium text-zinc-700 dark:text-zinc-300">이메일</span>
+            <span className="font-semibold text-foreground">이메일</span>
             <input
               value={form.email}
               onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-              className="rounded-lg border border-zinc-200 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+              className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
             />
           </label>
         </div>
 
         <label className="flex flex-col gap-1 text-sm">
-          <span className="font-medium text-zinc-700 dark:text-zinc-300">카카오톡 ID</span>
+          <span className="font-semibold text-foreground">카카오톡 ID</span>
           <input
             value={form.kakaoId}
             onChange={(e) => setForm((f) => ({ ...f, kakaoId: e.target.value }))}
-            className="rounded-lg border border-zinc-200 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+            className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
           />
         </label>
 
         <label className="flex flex-col gap-1 text-sm">
-          <span className="font-medium text-zinc-700 dark:text-zinc-300">메모</span>
+          <span className="font-semibold text-foreground">메모</span>
           <textarea
             value={form.notes}
             onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))}
             rows={3}
-            className="rounded-lg border border-zinc-200 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+            className="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-accent"
           />
         </label>
 
         <div className="flex items-center justify-between gap-2">
           {vendor ? (
-            <button type="button" onClick={handleDelete} className="rounded-lg px-3 py-2 text-sm font-medium text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30">
+            <button type="button" onClick={handleDelete} className="rounded-lg px-3 py-2 text-sm font-semibold text-negative hover:bg-negative-bg">
               삭제
             </button>
           ) : (
@@ -157,7 +157,7 @@ function VendorEditorForm({ vendor, onClose }: { vendor: Vendor | null; onClose:
             type="button"
             onClick={handleSave}
             disabled={!form.name.trim()}
-            className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-500 disabled:opacity-50"
+            className="rounded-lg bg-accent px-4 py-2 text-sm font-bold text-white shadow-card hover:bg-accent-ink disabled:opacity-50"
           >
             저장
           </button>

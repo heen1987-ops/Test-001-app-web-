@@ -8,15 +8,17 @@ const LABELS: Record<TaskStatus, string> = {
 };
 
 const STYLES: Record<TaskStatus, string> = {
-  todo: "bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300",
-  in_progress: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
-  done: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
-  cancelled: "bg-zinc-100 text-zinc-400 line-through dark:bg-zinc-800 dark:text-zinc-500",
+  todo: "bg-surface-2 text-muted border-border",
+  in_progress: "bg-accent-light text-accent-ink border-accent/20",
+  done: "bg-positive-bg text-positive-ink border-positive/20",
+  cancelled: "bg-surface-2 text-subtle line-through border-border",
 };
 
 export function StatusPill({ status }: { status: TaskStatus }) {
   return (
-    <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${STYLES[status]}`}>
+    <span
+      className={`inline-flex items-center rounded-full border px-2 py-0.5 font-mono text-[11px] font-bold ${STYLES[status]}`}
+    >
       {LABELS[status]}
     </span>
   );

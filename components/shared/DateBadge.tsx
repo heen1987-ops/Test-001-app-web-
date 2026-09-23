@@ -5,7 +5,7 @@ export function DateBadge({ spec, anchors, className }: { spec: TaskDateSpec; an
   const resolved = resolveDate(spec, anchors);
 
   if (spec.type === "unscheduled" || !resolved) {
-    return <span className={`text-zinc-400 dark:text-zinc-500 ${className ?? ""}`}>날짜 미정</span>;
+    return <span className={`text-subtle ${className ?? ""}`}>날짜 미정</span>;
   }
 
   const anchorLabel =
@@ -14,9 +14,9 @@ export function DateBadge({ spec, anchors, className }: { spec: TaskDateSpec; an
       : "";
 
   return (
-    <span className={className}>
+    <span className={`font-mono ${className ?? ""}`}>
       {formatDateDisplay(resolved)}
-      {anchorLabel && <span className="text-zinc-400 dark:text-zinc-500 text-xs">{anchorLabel}</span>}
+      {anchorLabel && <span className="text-xs text-subtle">{anchorLabel}</span>}
     </span>
   );
 }

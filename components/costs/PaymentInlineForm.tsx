@@ -17,6 +17,9 @@ const STATUS_OPTIONS: [PaymentStatus, string][] = [
   ["cancelled", "취소"],
 ];
 
+const inputClass = "rounded-lg border border-border bg-surface px-2 py-1.5 text-sm text-foreground outline-none focus:border-accent";
+const labelClass = "font-semibold text-muted";
+
 interface PaymentFormState {
   type: PaymentType;
   status: PaymentStatus;
@@ -75,14 +78,14 @@ export function PaymentInlineForm({
   };
 
   return (
-    <div className="flex flex-col gap-3 rounded-lg border border-zinc-200 bg-zinc-50 p-3 dark:border-zinc-700 dark:bg-zinc-900/50">
+    <div className="flex flex-col gap-3 rounded-lg border border-border bg-surface-2 p-3">
       <div className="grid grid-cols-2 gap-2">
         <label className="flex flex-col gap-1 text-xs">
-          <span className="font-medium text-zinc-600 dark:text-zinc-400">종류</span>
+          <span className={labelClass}>종류</span>
           <select
             value={form.type}
             onChange={(e) => setForm((f) => ({ ...f, type: e.target.value as PaymentType }))}
-            className="rounded-lg border border-zinc-200 px-2 py-1.5 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+            className={inputClass}
           >
             {TYPE_OPTIONS.map(([v, l]) => (
               <option key={v} value={v}>
@@ -92,11 +95,11 @@ export function PaymentInlineForm({
           </select>
         </label>
         <label className="flex flex-col gap-1 text-xs">
-          <span className="font-medium text-zinc-600 dark:text-zinc-400">상태</span>
+          <span className={labelClass}>상태</span>
           <select
             value={form.status}
             onChange={(e) => setForm((f) => ({ ...f, status: e.target.value as PaymentStatus }))}
-            className="rounded-lg border border-zinc-200 px-2 py-1.5 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+            className={inputClass}
           >
             {STATUS_OPTIONS.map(([v, l]) => (
               <option key={v} value={v}>
@@ -108,13 +111,13 @@ export function PaymentInlineForm({
       </div>
 
       <label className="flex flex-col gap-1 text-xs">
-        <span className="font-medium text-zinc-600 dark:text-zinc-400">금액 (미정이면 비워두세요)</span>
+        <span className={labelClass}>금액 (미정이면 비워두세요)</span>
         <input
           type="number"
           inputMode="numeric"
           value={form.amount}
           onChange={(e) => setForm((f) => ({ ...f, amount: e.target.value }))}
-          className="rounded-lg border border-zinc-200 px-2 py-1.5 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+          className={inputClass}
         />
       </label>
 
@@ -127,34 +130,34 @@ export function PaymentInlineForm({
 
       {form.status === "paid" && (
         <label className="flex flex-col gap-1 text-xs">
-          <span className="font-medium text-zinc-600 dark:text-zinc-400">실제 지급일</span>
+          <span className={labelClass}>실제 지급일</span>
           <input
             type="date"
             value={form.paidDate}
             onChange={(e) => setForm((f) => ({ ...f, paidDate: e.target.value }))}
-            className="rounded-lg border border-zinc-200 px-2 py-1.5 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+            className={inputClass}
           />
         </label>
       )}
 
       <label className="flex flex-col gap-1 text-xs">
-        <span className="font-medium text-zinc-600 dark:text-zinc-400">지급 수단</span>
+        <span className={labelClass}>지급 수단</span>
         <input
           value={form.method}
           onChange={(e) => setForm((f) => ({ ...f, method: e.target.value }))}
           placeholder="예: 계좌이체, 카드"
-          className="rounded-lg border border-zinc-200 px-2 py-1.5 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+          className={inputClass}
         />
       </label>
 
       <div className="flex justify-end gap-2">
-        <button type="button" onClick={onCancel} className="rounded-lg px-3 py-1.5 text-xs text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-800">
+        <button type="button" onClick={onCancel} className="rounded-lg px-3 py-1.5 text-xs font-semibold text-muted hover:bg-surface">
           취소
         </button>
         <button
           type="button"
           onClick={handleSubmit}
-          className="rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-indigo-500"
+          className="rounded-lg bg-accent px-3 py-1.5 text-xs font-bold text-white hover:bg-accent-ink"
         >
           저장
         </button>
