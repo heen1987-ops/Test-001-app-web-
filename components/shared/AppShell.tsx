@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { useAppData } from "@/lib/client/store";
 import { NAV_ITEMS } from "@/lib/nav";
 import { ConflictDialog } from "./ConflictDialog";
+import { GithubDisconnectButton } from "./GithubDisconnectButton";
 import { ProjectCreateWizard } from "./ProjectCreateWizard";
 import { SaveStatusBadge } from "./SaveStatusBadge";
 import { ThemeToggle } from "./ThemeToggle";
@@ -87,6 +88,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <ProjectSwitcher />
             <SaveStatusBadge />
             <ThemeToggle />
+            <GithubDisconnectButton />
           </div>
         </div>
       </header>
@@ -98,6 +100,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <div className="flex items-center gap-2">
             <ProjectSwitcher />
             <ThemeToggle />
+            <GithubDisconnectButton />
           </div>
         </div>
         <SaveStatusBadge />
