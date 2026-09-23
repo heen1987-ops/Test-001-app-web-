@@ -12,6 +12,9 @@ function isAllowedGithubId(id: number | string | undefined): boolean {
 }
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  // Vercel이 아닌 곳(Netlify 등)에 배포할 때는 요청의 Host 헤더를 자동으로 신뢰하지 않아서
+  // 이 설정이 없으면 "UntrustedHost" 에러가 난다.
+  trustHost: true,
   providers: [GitHub],
   callbacks: {
     async signIn({ profile }) {
