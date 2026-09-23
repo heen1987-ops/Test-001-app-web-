@@ -1,18 +1,21 @@
 "use client";
 import { ThemeProvider } from "next-themes";
+import { SessionProvider } from "next-auth/react";
 import { useMemo, type ReactNode } from "react";
 import { AppDataProvider } from "@/lib/client/store";
-import { LocalAdapter } from "@/lib/storage/localAdapter";
+import { RemoteAdapter } from "@/lib/storage/remoteAdapter";
 import { AppShell } from "./AppShell";
 
 export function Providers({ children }: { children: ReactNode }) {
-  const adapter = useMemo(() => new LocalAdapter(), []);
+  const adapter = useMemo(() => new RemoteAdapter(), []);
 
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      <AppDataProvider adapter={adapter}>
-        <AppShell>{children}</AppShell>
-      </AppDataProvider>
-    </ThemeProvider>
+    <SessionProvider>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <AppDataProvider adapter={adapter}>
+          <AppShell>{children}</AppShell>
+        </AppDataProvider>
+      </ThemeProvider>
+    </SessionProvider>
   );
 }
