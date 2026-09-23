@@ -25,6 +25,8 @@ interface AppDataValue {
   saveStatus: SaveStatus;
   lastSavedAt: string | null;
   conflictLatest: ProjectData | null;
+  /** 초기 목록·데이터 불러오기 자체가 실패했을 때(네트워크, 세션 만료 등) */
+  loadError: string | null;
   selectProject: (id: string) => void;
   createProject: (input: Parameters<typeof createProjectRecord>[0]) => Promise<string>;
   mutate: (fn: (data: ProjectData) => ProjectData) => void;
@@ -41,6 +43,7 @@ export function AppDataProvider({ adapter, children }: { adapter: DataAdapter; c
   const [saveStatus, setSaveStatus] = useState<SaveStatus>("loading");
   const [lastSavedAt, setLastSavedAt] = useState<string | null>(null);
   const [conflictLatest, setConflictLatest] = useState<ProjectData | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const shaRef = useRef<string | null>(null);
   const queueRef = useRef<Promise<void>>(Promise.resolve());
   const dataRef = useRef<ProjectData | null>(null);
@@ -51,14 +54,20 @@ export function AppDataProvider({ adapter, children }: { adapter: DataAdapter; c
   // 프로젝트 목록 최초 로드 + 마지막으로 선택했던 프로젝트 복원
   useEffect(() => {
     let cancelled = false;
-    adapter.listProjects().then((list) => {
-      if (cancelled) return;
-      setProjects(list);
-      const stored = localStorage.getItem(SELECTED_PROJECT_KEY);
-      const initial = stored && list.some((p) => p.id === stored) ? stored : (list[0]?.id ?? null);
-      if (initial) setSaveStatus("loading");
-      setSelectedId(initial);
-    });
+    adapter
+      .listProjects()
+      .then((list) => {
+        if (cancelled) return;
+        setProjects(list);
+        const stored = localStorage.getItem(SELECTED_PROJECT_KEY);
+        const initial = stored && list.some((p) => p.id === stored) ? stored : (list[0]?.id ?? null);
+        if (initial) setSaveStatus("loading");
+        setSelectedId(initial);
+      })
+      .catch((err: unknown) => {
+        if (cancelled) return;
+        setLoadError(err instanceof Error ? err.message : "목록을 불러오지 못했습니다.");
+      });
     return () => {
       cancelled = true;
     };
@@ -72,14 +81,20 @@ export function AppDataProvider({ adapter, children }: { adapter: DataAdapter; c
       return;
     }
     let cancelled = false;
-    adapter.getProject(selectedId).then((res) => {
-      if (cancelled || !res) return;
-      setData(res.data);
-      shaRef.current = res.sha;
-      setSaveStatus("saved");
-      setLastSavedAt(res.data.project.updatedAt);
-      setConflictLatest(null);
-    });
+    adapter
+      .getProject(selectedId)
+      .then((res) => {
+        if (cancelled || !res) return;
+        setData(res.data);
+        shaRef.current = res.sha;
+        setSaveStatus("saved");
+        setLastSavedAt(res.data.project.updatedAt);
+        setConflictLatest(null);
+      })
+      .catch((err: unknown) => {
+        if (cancelled) return;
+        setLoadError(err instanceof Error ? err.message : "프로젝트를 불러오지 못했습니다.");
+      });
     return () => {
       cancelled = true;
     };
@@ -191,6 +206,7 @@ export function AppDataProvider({ adapter, children }: { adapter: DataAdapter; c
       saveStatus,
       lastSavedAt,
       conflictLatest,
+      loadError,
       selectProject,
       createProject,
       mutate,
@@ -204,6 +220,7 @@ export function AppDataProvider({ adapter, children }: { adapter: DataAdapter; c
       saveStatus,
       lastSavedAt,
       conflictLatest,
+      loadError,
       selectProject,
       createProject,
       mutate,

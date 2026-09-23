@@ -7,6 +7,7 @@ import { NAV_ITEMS } from "@/lib/nav";
 import { ConflictDialog } from "./ConflictDialog";
 import { ProjectCreateWizard } from "./ProjectCreateWizard";
 import { SaveStatusBadge } from "./SaveStatusBadge";
+import { SignOutButton } from "./SignOutButton";
 import { ThemeToggle } from "./ThemeToggle";
 
 function ProjectSwitcher() {
@@ -29,7 +30,23 @@ function ProjectSwitcher() {
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const { projects } = useAppData();
+  const { projects, loadError } = useAppData();
+
+  if (loadError) {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center gap-3 px-4 text-center">
+        <p className="text-sm font-medium text-rose-600 dark:text-rose-400">불러오지 못했습니다</p>
+        <p className="max-w-xs text-sm text-zinc-500 dark:text-zinc-400">{loadError}</p>
+        <button
+          type="button"
+          onClick={() => window.location.reload()}
+          className="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white dark:bg-zinc-100 dark:text-zinc-900"
+        >
+          다시 시도
+        </button>
+      </div>
+    );
+  }
 
   if (projects === null) {
     return <div className="flex min-h-screen items-center justify-center text-sm text-zinc-400">불러오는 중…</div>;
@@ -69,6 +86,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <ProjectSwitcher />
             <SaveStatusBadge />
             <ThemeToggle />
+            <SignOutButton />
           </div>
         </div>
       </header>
@@ -80,6 +98,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <div className="flex items-center gap-2">
             <ProjectSwitcher />
             <ThemeToggle />
+            <SignOutButton />
           </div>
         </div>
         <SaveStatusBadge />
