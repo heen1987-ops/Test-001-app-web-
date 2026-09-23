@@ -55,7 +55,7 @@ export function UpcomingPaymentsWidget() {
         <ul className="mt-3 flex flex-col gap-0.5 border-t border-border pt-2">
           {rows.map((r) => (
             <li key={r.id} className="flex items-center gap-2.5 rounded-lg px-1 py-2 text-sm">
-              <span className="inline-flex min-w-14 flex-none justify-center rounded-full border border-warning/20 bg-warning-bg px-2 py-0.5 font-mono text-[11px] font-bold text-warning-ink">
+              <span className="inline-flex min-w-14 flex-none justify-center rounded-full border border-warning/20 bg-warning-bg px-2 py-0.5 text-[11px] font-bold text-warning-ink">
                 {formatDateDisplay(r.date).slice(5)}
               </span>
               <span className="min-w-0 flex-1 truncate font-medium text-foreground">{r.label}</span>

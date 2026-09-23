@@ -14,7 +14,7 @@ export function DateBadge({ spec, anchors, className }: { spec: TaskDateSpec; an
       : "";
 
   return (
-    <span className={`font-mono ${className ?? ""}`}>
+    <span className={className}>
       {formatDateDisplay(resolved)}
       {anchorLabel && <span className="text-xs text-subtle">{anchorLabel}</span>}
     </span>

@@ -15,7 +15,7 @@ export function MoneyAmount({
   const sign = amount < 0 ? "-" : "";
   const formatted = Math.abs(amount).toLocaleString("ko-KR");
   return (
-    <span className={`font-mono tabular-nums ${className ?? ""}`}>
+    <span className={`tabular-nums ${className ?? ""}`}>
       {sign}
       {formatted}원
     </span>

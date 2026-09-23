@@ -33,12 +33,12 @@ export function TaskListItem({ task, onOpen }: { task: Task; onOpen: (task: Task
           <StatusPill status={task.status} />
           <PriorityPill priority={task.priority} />
           {blocked && (
-            <span className="rounded-full border border-border bg-surface-2 px-2 py-0.5 font-mono text-[11px] font-bold text-muted">
+            <span className="rounded-full border border-border bg-surface-2 px-2 py-0.5 text-[11px] font-bold text-muted">
               선행 작업 대기
             </span>
           )}
           {conflict && (
-            <span className="rounded-full border border-negative/20 bg-negative-bg px-2 py-0.5 font-mono text-[11px] font-bold text-negative-ink">
+            <span className="rounded-full border border-negative/20 bg-negative-bg px-2 py-0.5 text-[11px] font-bold text-negative-ink">
               날짜 충돌
             </span>
           )}

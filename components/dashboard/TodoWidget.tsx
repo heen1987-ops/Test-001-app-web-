@@ -85,7 +85,7 @@ export function TodoWidget() {
                 className="h-4 w-4 shrink-0 accent-accent"
               />
               <span
-                className={`inline-flex min-w-11 flex-none justify-center rounded-full border px-2 py-0.5 font-mono text-[11px] font-bold ${BADGE_STYLES[urgency]}`}
+                className={`inline-flex min-w-11 flex-none justify-center rounded-full border px-2 py-0.5 text-[11px] font-bold ${BADGE_STYLES[urgency]}`}
               >
                 {dDayLabel(due, todayStr)}
               </span>

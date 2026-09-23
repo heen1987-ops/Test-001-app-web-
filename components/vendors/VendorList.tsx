@@ -16,7 +16,7 @@ export function VendorList({ vendors, onOpen }: { vendors: Vendor[]; onOpen: (ve
             {v.category && <span className="text-xs text-subtle">{v.category}</span>}
           </div>
           <span
-            className={`rounded-full border px-2 py-0.5 font-mono text-[11px] font-bold ${BOOKING_STATUS_STYLE[v.bookingStatus]}`}
+            className={`rounded-full border px-2 py-0.5 text-[11px] font-bold ${BOOKING_STATUS_STYLE[v.bookingStatus]}`}
           >
             {BOOKING_STATUS_LABEL[v.bookingStatus]}
           </span>

@@ -34,7 +34,7 @@ export function VendorStatusWidget() {
               <span className="min-w-0 flex-1 truncate font-medium text-foreground">{v.name}</span>
               {v.category && <span className="flex-none text-xs text-subtle">{v.category}</span>}
               <span
-                className={`flex-none rounded-full border px-2 py-0.5 font-mono text-[11px] font-bold ${BOOKING_STATUS_STYLE[v.bookingStatus]}`}
+                className={`flex-none rounded-full border px-2 py-0.5 text-[11px] font-bold ${BOOKING_STATUS_STYLE[v.bookingStatus]}`}
               >
                 {BOOKING_STATUS_LABEL[v.bookingStatus]}
               </span>

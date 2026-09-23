@@ -26,7 +26,7 @@ export function SaveStatusBadge() {
   const { saveStatus, lastSavedAt } = useAppData();
 
   return (
-    <div className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface-2 px-2.5 py-1 font-mono text-[11px] font-semibold text-muted">
+    <div className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface-2 px-2.5 py-1 text-[11px] font-semibold text-muted">
       <span className={`h-1.5 w-1.5 rounded-full ${DOT_STYLES[saveStatus]}`} />
       <span>{LABELS[saveStatus]}</span>
       {saveStatus === "saved" && lastSavedAt && <span className="text-subtle">· {formatTime(lastSavedAt)}</span>}

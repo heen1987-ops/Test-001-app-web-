@@ -63,7 +63,7 @@ export function TaskMonthlyCalendarView({ tasks, onOpen }: { tasks: Task[]; onOp
           const isToday = day === today();
           return (
             <div key={day} className={`min-h-20 bg-surface p-1 ${inMonth ? "" : "opacity-40"}`}>
-              <p className={`mb-1 text-right font-mono ${isToday ? "font-bold text-accent-ink" : "text-subtle"}`}>
+              <p className={`mb-1 text-right ${isToday ? "font-bold text-accent-ink" : "text-subtle"}`}>
                 {Number(day.slice(8, 10))}
               </p>
               <div className="flex flex-col gap-0.5">

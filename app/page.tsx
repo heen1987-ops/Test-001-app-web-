@@ -41,23 +41,23 @@ export default function HomePage() {
   return (
     <div className="flex flex-col gap-5">
       {/* 히어로 D-day 배너 */}
-      <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl bg-gradient-to-br from-blue-800 to-accent p-6 text-white shadow-card-md">
+      <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-border bg-surface p-6 shadow-card">
         <div className="flex flex-col gap-1.5">
-          <span className="w-fit rounded-full bg-white/20 px-2.5 py-0.5 text-[11px] font-bold backdrop-blur-sm">
+          <span className="w-fit rounded-full bg-accent-light px-2.5 py-0.5 text-[11px] font-bold text-accent-ink">
             {project.contractType ?? "이사 프로젝트"}
           </span>
-          <h1 className="text-lg font-extrabold tracking-tight">{project.name}</h1>
-          {project.moveDate && <p className="text-sm text-white/85">이사일 {project.moveDate}</p>}
+          <h1 className="text-lg font-extrabold tracking-tight text-foreground">{project.name}</h1>
+          {project.moveDate && <p className="text-sm text-muted">이사일 {project.moveDate}</p>}
         </div>
-        <div className="rounded-xl border border-white/25 bg-white/15 px-5 py-2 text-center font-mono">
+        <div className="rounded-xl border border-border bg-surface-2 px-5 py-2 text-center">
           {summary.daysUntilMove == null ? (
-            <span className="text-base font-bold">이사일 미정</span>
+            <span className="text-base font-bold text-muted">이사일 미정</span>
           ) : (
             <>
-              <span className="text-3xl font-extrabold tracking-tight">
+              <span className="text-3xl font-extrabold tracking-tight text-accent-ink">
                 {summary.daysUntilMove >= 0 ? `D-${summary.daysUntilMove}` : `D+${-summary.daysUntilMove}`}
               </span>
-              {summary.daysUntilMove < 0 && <span className="ml-1 block text-[11px] font-semibold">이사일 경과</span>}
+              {summary.daysUntilMove < 0 && <span className="ml-1 block text-[11px] font-semibold text-negative-ink">이사일 경과</span>}
             </>
           )}
         </div>
@@ -70,7 +70,7 @@ export default function HomePage() {
             <span className="text-sm text-subtle">할 일 없음</span>
           ) : (
             <>
-              <span className="font-mono text-2xl font-extrabold text-foreground">
+              <span className="text-2xl font-extrabold text-foreground">
                 {Math.round(summary.taskCompletionPct * 100)}%
               </span>
               <ProgressBar ratio={summary.taskCompletionPct} className="mt-1" />

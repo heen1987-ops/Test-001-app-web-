@@ -30,7 +30,7 @@ export function TaskWeeklyTimelineView({ tasks, onOpen }: { tasks: Task[]; onOpe
         >
           ← 이전 주
         </button>
-        <span className="font-mono text-sm text-muted">
+        <span className="text-sm text-muted">
           {formatDateDisplay(days[0])} – {formatDateDisplay(days[6])}
         </span>
         <button

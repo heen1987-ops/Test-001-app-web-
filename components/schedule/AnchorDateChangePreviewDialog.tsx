@@ -25,7 +25,7 @@ export function AnchorDateChangePreviewDialog({
               className="flex items-center justify-between gap-2 rounded-lg border border-border px-3 py-1.5 text-sm"
             >
               <span className="truncate text-foreground">{e.label}</span>
-              <span className="shrink-0 font-mono text-xs text-subtle">
+              <span className="shrink-0 text-xs text-subtle">
                 {e.before ? formatDateDisplay(e.before) : "미정"} → {e.after ? formatDateDisplay(e.after) : "미정"}
               </span>
             </li>

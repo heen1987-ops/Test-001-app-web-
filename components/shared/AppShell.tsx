@@ -10,14 +10,7 @@ import { SaveStatusBadge } from "./SaveStatusBadge";
 import { ThemeToggle } from "./ThemeToggle";
 
 function BrandMark() {
-  return (
-    <span
-      className="bg-gradient-to-br from-blue-800 to-accent bg-clip-text text-lg font-extrabold tracking-tight text-transparent"
-      style={{ fontFamily: "var(--font-plex-mono)" }}
-    >
-      MOVE OS
-    </span>
-  );
+  return <span className="text-lg font-extrabold tracking-tight text-accent-ink">MOVE OS</span>;
 }
 
 function ProjectSwitcher() {
