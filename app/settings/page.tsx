@@ -13,6 +13,7 @@ import {
   vendorsToCSV,
   type ImportSummary,
 } from "@/lib/exportImport";
+import { buildNewChecklistTasks } from "@/lib/moveChecklist";
 import type { ProjectData } from "@/lib/types";
 
 export default function SettingsPage() {
@@ -25,6 +26,7 @@ export default function SettingsPage() {
 
   const [pendingImport, setPendingImport] = useState<{ data: ProjectData; summary: ImportSummary } | null>(null);
   const [importErrors, setImportErrors] = useState<string[] | null>(null);
+  const [checklistAddedCount, setChecklistAddedCount] = useState<number | null>(null);
 
   if (!data) return <div className="py-20 text-center text-sm text-subtle">불러오는 중…</div>;
 
@@ -86,6 +88,14 @@ export default function SettingsPage() {
     setPendingImport(null);
   };
 
+  const handleAddChecklist = () => {
+    const newTasks = buildNewChecklistTasks(data.tasks);
+    if (newTasks.length > 0) {
+      mutate((d) => ({ ...d, tasks: [...d.tasks, ...newTasks] }));
+    }
+    setChecklistAddedCount(newTasks.length);
+  };
+
   return (
     <div className="flex flex-col gap-8 pb-10">
       <h1 className="text-xl font-extrabold tracking-tight text-foreground">설정</h1>
@@ -115,6 +125,26 @@ export default function SettingsPage() {
           >
             기준일 저장
           </button>
+        )}
+      </section>
+
+      <section className={sectionClass}>
+        <h2 className="text-sm font-bold text-foreground">이사 준비 체크리스트</h2>
+        <p className="text-sm text-muted">
+          전입신고·공과금 정산·주소 이전 등 이사 시 일반적으로 필요한 할 일을 이사일 기준으로 일괄 추가합니다. 이미 추가된
+          항목은 다시 누르면 건너뜁니다.
+        </p>
+        <button
+          type="button"
+          onClick={handleAddChecklist}
+          className="w-fit rounded-lg bg-accent px-4 py-2 text-sm font-bold text-white shadow-card hover:bg-accent-ink"
+        >
+          일정·할일에 추가
+        </button>
+        {checklistAddedCount != null && (
+          <p className="text-sm text-muted">
+            {checklistAddedCount > 0 ? `${checklistAddedCount}건을 추가했습니다.` : "새로 추가할 항목이 없습니다(이미 모두 추가됨)."}
+          </p>
         )}
       </section>
 
