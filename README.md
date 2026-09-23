@@ -2,21 +2,25 @@
 
 개인용 이사 관리 웹앱. 일정·할 일·비용·지급·업체를 한 프로젝트 안에서 관리합니다.
 
-- Next.js(TypeScript) + Tailwind CSS, Netlify 배포
-- 로그인 없이 누구나 접속해 바로 씁니다. 데이터는 서버가 아니라 **접속한 기기의 브라우저(localStorage)에만** 저장됩니다 — 다른 기기·브라우저에서는 보이지 않고, 브라우저 저장공간을 지우면 함께 사라집니다.
+- **100% 순수 GitHub 기반**: 별도의 외부 서버나 유료 호스팅(Netlify, Vercel 등) 없이 **GitHub Pages**로 웹앱을 실행하고, **GitHub Private Repo**를 데이터베이스로 사용합니다.
+- 데이터는 서버가 아니라 사용자의 **GitHub 데이터 저장소** 및 브라우저에 안전하게 저장됩니다.
 
-## 개발 서버 실행
+## 주요 기능
+
+1. **대시보드**: 이사 D-day 카운트다운, 전체 진행률, 예산 대비 지출 현황, 예정된 지급일 모아보기
+2. **일정/체크리스트**: 타임라인/캘린더/리스트 뷰, 이사일 기준 자동 D-day 할 일 계산
+3. **비용 & 현금흐름**: 계약금/중도금/잔금 지급 일정 관리, 예상 비용 집계
+4. **업체 관리**: 이사/입주청소/인테리어 등 업체 정보 및 링크 정리
+
+## 로컬 개발 및 실행
 
 ```bash
 npm install
 npm run dev
 ```
 
-[http://localhost:3000](http://localhost:3000) 에서 확인합니다.
+브라우저에서 [http://localhost:3000](http://localhost:3000) 접속
 
-## 스크립트
+## GitHub Pages 배포
 
-- `npm run dev` — 개발 서버
-- `npm run build` — 프로덕션 빌드
-- `npm run lint` — ESLint 검사
-- `npm test` — 단위 테스트 (Vitest)
+이 저장소에 변경사항을 `push`하면 `.github/workflows/deploy.yml`을 통해 자동으로 GitHub Pages에 빌드 및 배포됩니다.
