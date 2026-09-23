@@ -7,7 +7,6 @@ import { NAV_ITEMS } from "@/lib/nav";
 import { ConflictDialog } from "./ConflictDialog";
 import { ProjectCreateWizard } from "./ProjectCreateWizard";
 import { SaveStatusBadge } from "./SaveStatusBadge";
-import { SignOutButton } from "./SignOutButton";
 import { ThemeToggle } from "./ThemeToggle";
 
 function BrandMark() {
@@ -95,7 +94,6 @@ export function AppShell({ children }: { children: ReactNode }) {
             <ProjectSwitcher />
             <SaveStatusBadge />
             <ThemeToggle />
-            <SignOutButton />
           </div>
         </div>
       </header>
@@ -107,7 +105,6 @@ export function AppShell({ children }: { children: ReactNode }) {
           <div className="flex items-center gap-2">
             <ProjectSwitcher />
             <ThemeToggle />
-            <SignOutButton />
           </div>
         </div>
         <SaveStatusBadge />
