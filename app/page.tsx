@@ -4,6 +4,8 @@ import { useMemo, type ReactNode } from "react";
 import { MoneyAmount } from "@/components/shared/MoneyAmount";
 import { ProgressBar } from "@/components/shared/ProgressBar";
 import { TodoWidget } from "@/components/dashboard/TodoWidget";
+import { UpcomingPaymentsWidget } from "@/components/dashboard/UpcomingPaymentsWidget";
+import { VendorStatusWidget } from "@/components/dashboard/VendorStatusWidget";
 import { isExpense } from "@/lib/aggregation";
 import { computeDashboardSummary } from "@/lib/dashboard";
 import { today } from "@/lib/dates";
@@ -109,6 +111,11 @@ export default function HomePage() {
       </div>
 
       <TodoWidget />
+
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+        <UpcomingPaymentsWidget />
+        <VendorStatusWidget />
+      </div>
     </div>
   );
 }
