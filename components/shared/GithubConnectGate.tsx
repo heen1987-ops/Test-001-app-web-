@@ -125,7 +125,7 @@ export function GithubConnectGate({ onConnected }: { onConnected: () => void }) 
         )}
 
         {error && (
-          <div className="rounded-lg bg-negative-light/30 p-3 text-xs font-medium text-negative-ink border border-negative-ink/20">
+          <div className="rounded-lg border border-negative-ink/20 bg-negative-bg p-3 text-xs font-medium text-negative-ink">
             {error}
           </div>
         )}
