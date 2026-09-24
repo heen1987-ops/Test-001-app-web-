@@ -1,0 +1,3 @@
+:HL["/Test-001-app-web-/_next/static/chunks/1-ag8zgg6218z.css","style"]
+:HL["https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"settings","param":null,"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}},"staleTime":300,"buildId":"kVMIgtuTmUej-GjYJsKq9"}
